@@ -1,0 +1,16 @@
+name: Configuration Java
+on:
+ workflow_dispatch:
+jobs:
+ affichage:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Installer Java 21
+     uses: actions/setup-java@v6
+     with:
+      java-version: '21'
+      distribution: 'temurin'
+   - name: Afficher les versions
+     run: |
+        java -version
+        mvn -version
