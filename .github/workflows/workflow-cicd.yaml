@@ -30,6 +30,8 @@ jobs:
 
       - name: Compiler et tester avec Maven
         run: mvn -B clean package
+        env:
+          SPRING_PROFILES_ACTIVE: test
 
       - name: Publier le rapport JaCoCo
         uses: actions/upload-artifact@v7
