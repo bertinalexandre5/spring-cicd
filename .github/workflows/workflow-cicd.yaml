@@ -1,7 +1,7 @@
-name:  CI avec CodeQL et JaCoCo
+name: CI avec CodeQL, JaCoCo et Checkstyle
 on:
   push:
-    branches: [ "main"]
+    branches: [ "main" ]
 
 jobs:
   analyse:
@@ -18,26 +18,26 @@ jobs:
       - name: Installer Java 21
         uses: actions/setup-java@v6
         with:
-         java-version: '21'
-         distribution: 'temurin'
-         cache: maven
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-      - name: Initialiser de CodeQL
+      - name: Initialiser CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: java-kotlin
           build-mode: manual
 
       - name: Compiler et tester avec Maven
-        run: mvn -B clean package
+        run: mvn -B clean verify
         env:
           SPRING_PROFILES_ACTIVE: test
 
       - name: Publier le rapport JaCoCo
         uses: actions/upload-artifact@v7
         with:
-         name: rapport-jacoco
-         path: target/site/jacoco
+          name: rapport-jacoco
+          path: target/site/jacoco
 
       - name: Générer le rapport Checkstyle
         run: mvn -B checkstyle:checkstyle
@@ -47,10 +47,10 @@ jobs:
         with:
           name: rapport-checkstyle
           path: |
-                target/checkstyle-result.xml
-                target/site/checkstyle.html
-                target/site/css
-                target/site/images
+            target/checkstyle-result.xml
+            target/site/checkstyle.html
+            target/site/css
+            target/site/images
 
       - name: Analyse CodeQL
         uses: github/codeql-action/analyze@v4
