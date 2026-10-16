@@ -40,7 +40,7 @@ jobs:
           path: target/site/jacoco
 
       - name: Générer le rapport Checkstyle
-        run: mvn -B sitegt
+        run: mvn -B site
 
       - name: Publier le rapport Checkstyle
         uses: actions/upload-artifact@v7
